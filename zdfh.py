@@ -67,14 +67,15 @@ v_x0c = 0
 y0c = 0
 v_y0c = 15000 
 
-x0d = 
-v_x0d = 
-y0d = 
-v_y0d = 
+x0d = x0a + 1.5*AE
+v_x0d = 0
+y0d = 0
+v_y0d = 10000 + 3000
 
 s_0 = (x0a, v_x0a, y0a, v_y0a,
        x0b, v_x0b, y0b, v_y0b,
-       x0c, v_x0c, y0c, v_y0c)
+       x0c, v_x0c, y0c, v_y0c,
+       x0d, v_x0d, y0d, v_y0d)
 
 sol = odeint(dif_func, s_0, t)
 fig = plt.figure()
@@ -88,10 +89,14 @@ for i in range(len(t)):
     
     body3, = plt.plot(sol[:i, 8], sol[:i, 10], '-', color='k')
     body3_line, = plt.plot(sol[i, 8], sol[i, 10], 'o', color='k')
+    
+    body4, = plt.plot(sol[:i, 12], sol[:i, 14], '-', color='y')
+    body4_line, = plt.plot(sol[i, 12], sol[i, 14], 'o', color='y')
        
     bodys.append([body1, body1_line, 
                    body2, body2_line, 
-                   body3, body3_line])
+                   body3, body3_line,
+                   body4, body4_line])
 
 ani = ArtistAnimation(fig, bodys, interval=50)
 plt.axis('equal')
